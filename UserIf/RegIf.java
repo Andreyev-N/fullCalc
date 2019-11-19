@@ -1,4 +1,4 @@
-package loginSystem;
+package UserIf;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -6,16 +6,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import dataBase.WorkTable;
-import dataBase.WorkFile;
 
 public class RegIf {
 	
@@ -38,6 +35,7 @@ public class RegIf {
 	public RegIf(WorkTable UsersBase) throws IOException {
 		this.UBase = UsersBase;
 		UBase = new WorkTable();
+
 		RegFrame.setLocation(500, 200);
 		mainPane.setLayout(new GridLayout(5, 1));
 

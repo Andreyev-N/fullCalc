@@ -1,4 +1,4 @@
-package loginSystem;
+package UserIf;
 import javax.swing.JFrame;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -10,23 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import CasheModul.CasheMod;
+import Logger.Logger;
 
 public class CalcInterface {
-	
-	public CalcInterface(String login) {
-		this.login = login;
-		CalcFrame.setName(login);
-		CalcFrame.setLocation(500, 200);
-		CalcFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		mainPane.setLayout(new GridLayout(2, 1));
-
-		setButtonPane(ButtonPane);
-		setLabelPane(LabelPane);
-		mainPane.add(LabelPane);
-		mainPane.add(ButtonPane);
-	}
-	private String login = new String();
 	
 	private JFrame CalcFrame = new JFrame();
 	private final JButton[] Buttons = new JButton[16];
@@ -40,8 +26,28 @@ public class CalcInterface {
 	private JTextField resLine = new JTextField();
 	
 	private String calcLineString = new String();
+	private String login = new String();
+	
+	private Logger Logger = new Logger();
+	
+	public CalcInterface() {;
+		CalcFrame.setName(login);
+		CalcFrame.setLocation(500, 200);
+		CalcFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	public void openCalc() {
+		mainPane.setLayout(new GridLayout(2, 1));
+
+		setButtonPane(ButtonPane);
+		setLabelPane(LabelPane);
+		mainPane.add(LabelPane);
+		mainPane.add(ButtonPane);
+	}
+
+	
+	
+
+	public void openCalc(String login) {
+		this.login = login;
 		CalcFrame.pack();
 		CalcFrame.setVisible(true);
 		HearButtons();
@@ -192,6 +198,7 @@ public class CalcInterface {
 			public void actionPerformed(ActionEvent e) {
 				CasheMod Cache = new CasheMod(10);
 				resLine.setText(Cache.newItem(calcLineString));
+				Logger.log(login, calcLineString + " = " + resLine.getText());
 				calcLineString = "";
 			}
 		});

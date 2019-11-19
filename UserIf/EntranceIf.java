@@ -1,12 +1,10 @@
-package loginSystem;
+package UserIf;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -62,32 +60,6 @@ public class EntranceIf extends RegIf {
 
 	private void Hear() {
 		
-		/*InFrame.addKeyListener(new KeyListener(){
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-					System.out.println("da");
-					CalcInterface Calc = new CalcInterface();
-					Calc.openCalc();
-					InFrame.setVisible(false);
-				}
-				
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				
-			}
-			
-		});*/
-
 		loginField.addActionListener(new ActionListener() {
 
 			@Override
@@ -109,10 +81,9 @@ public class EntranceIf extends RegIf {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (UBase.findElement(loginField.getText(), String.valueOf(passwordField.getPassword()))) {
-					CalcInterface Calc = new CalcInterface(loginField.getText());
-					Calc.openCalc();
+					CalcInterface Calc = new CalcInterface();
+					Calc.openCalc(loginField.getText());
 					InFrame.setVisible(false);
-
 				} else {
 					answerLabel.setText("not found");
 				}

@@ -1,6 +1,8 @@
-package loginSystem;
+package Main;
 
 import java.io.IOException;
+
+import UserIf.EntranceIf;
 
 public class Main_loginSystem {
 
