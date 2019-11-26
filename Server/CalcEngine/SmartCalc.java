@@ -1,4 +1,4 @@
-package CalcEngine;
+package Server.CalcEngine;
 
 
 public class SmartCalc {

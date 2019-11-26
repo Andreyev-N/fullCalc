@@ -1,4 +1,4 @@
-package UserIf;
+package Client.UserIf;
 import javax.swing.JFrame;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -9,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import CasheModul.CasheMod;
-import Logger.Logger;
+import Client.CasheModul.CasheMod;
+import Server.Logger.Logger;
 
 public class CalcInterface {
 	

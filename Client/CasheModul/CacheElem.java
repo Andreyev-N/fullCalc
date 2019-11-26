@@ -1,4 +1,4 @@
-package CasheModul;
+package Client.CasheModul;
 
 public class CacheElem {
 	String value = new String();

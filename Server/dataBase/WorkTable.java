@@ -1,4 +1,4 @@
-package dataBase;
+package Server.dataBase;
 import java.io.IOException;
 import java.util.Random;
 

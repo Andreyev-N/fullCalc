@@ -1,11 +1,14 @@
-package UserIf;
+package Client.UserIf;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,10 +31,13 @@ public class EntranceIf extends RegIf {
 
 	private JButton InButton = new JButton("Sign in");
 	private JButton RegButton = new JButton("Sign up");
+	
 
-	public EntranceIf() throws IOException {
+	public EntranceIf(PrintWriter writer, BufferedReader reader) throws IOException {
 		super(UBase);
-
+		super.writer = writer;
+		super.reader = reader;
+		
 		InFrame.setLocation(300, 200);
 		InFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPane.setLayout(new GridLayout(4, 1));
@@ -60,32 +66,28 @@ public class EntranceIf extends RegIf {
 
 	private void Hear() {
 		
-		loginField.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-
-		passwordField.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
 
 		InButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (UBase.findElement(loginField.getText(), String.valueOf(passwordField.getPassword()))) {
-					CalcInterface Calc = new CalcInterface();
-					Calc.openCalc(loginField.getText());
-					InFrame.setVisible(false);
-				} else {
-					answerLabel.setText("not found");
+				writer.println("sign in");
+				writer.println(loginField.getText() + "%%" + String.valueOf(passwordField.getPassword()));
+				writer.flush();
+				try {
+					Thread.sleep(1000);
+					String line = reader.readLine();
+					if (line.equals("success")) {
+						CalcInterface Calc = new CalcInterface();
+						Calc.openCalc(loginField.getText());
+						InFrame.setVisible(false);
+					} else {
+						answerLabel.setText("not found");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
 				}
 			}
 

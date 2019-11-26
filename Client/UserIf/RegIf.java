@@ -1,22 +1,28 @@
-package UserIf;
+package Client.UserIf;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import dataBase.WorkTable;
+
+import Server.dataBase.WorkTable;
 
 public class RegIf {
 	
 	protected JFrame RegFrame = new JFrame("calculator");
+	protected PrintWriter writer;
+	protected BufferedReader reader;
 
 	private Container mainPane = RegFrame.getContentPane();
 	private Container LoginPane = new JPanel(new GridLayout());
@@ -33,7 +39,7 @@ public class RegIf {
 	protected static WorkTable UBase;
 
 	public RegIf(WorkTable UsersBase) throws IOException {
-		this.UBase = UsersBase;
+		RegIf.UBase = UsersBase;
 		UBase = new WorkTable();
 
 		RegFrame.setLocation(500, 200);
@@ -74,26 +80,23 @@ public class RegIf {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					String login = new String(loginField.getText());
-					System.out.println(":" + String.valueOf(passwordField.getPassword()) + ":");
-					System.out.println(":" + passwordField2.getPassword().toString() + ":");
-					String password = new String(String.valueOf(passwordField.getPassword()));
-					if (!login.equals("")) {
-						
-						if (password.equals(String.valueOf(passwordField2.getPassword()))) {
-							UBase.addNewElem(login, password);
-							answerLabel.setText("success");
-							RegFrame.setVisible(false);
-						} else {
-							answerLabel.setText("passwords no match");
-						}
+				String login = new String(loginField.getText());
+				System.out.println(":" + String.valueOf(passwordField.getPassword()) + ":");
+				System.out.println(":" + passwordField2.getPassword().toString() + ":");
+				String password = new String(String.valueOf(passwordField.getPassword()));
+				if (!login.equals("")) {
+					
+					if (password.equals(String.valueOf(passwordField2.getPassword()))) {
+						writer.println("reg");
+						writer.println(login + "%%" + password);
+						writer.flush();
+						answerLabel.setText("success");
+						RegFrame.setVisible(false);
 					} else {
-						answerLabel.setText("enter login");
+						answerLabel.setText("passwords no match");
 					}
-
-				} catch (IOException e) {
-					e.printStackTrace();
+				} else {
+					answerLabel.setText("enter login");
 				}
 
 				//

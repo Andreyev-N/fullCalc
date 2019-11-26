@@ -1,4 +1,4 @@
-package dataBase;
+package Server.dataBase;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -59,7 +59,11 @@ public abstract class WorkFile {
 			try {
 				TempEl.setId(Integer.parseInt(ArrStrEl[0]));
 				TempEl.setLogin(ArrStrEl[1]);
+				if(ArrStrEl.length == 2){
+					TempEl.setPassword("");
+				}else if(ArrStrEl.length == 3){
 				TempEl.setPassword(ArrStrEl[2]);
+				}
 			} catch (NumberFormatException e) {
 				return false;
 			} catch (NullPointerException e) {

@@ -1,11 +1,11 @@
-package CasheModul;
+package Client.CasheModul;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
-import CalcEngine.SmartCalc;
+import Server.CalcEngine.SmartCalc;
 
 public class CasheMod {
 

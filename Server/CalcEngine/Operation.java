@@ -1,4 +1,4 @@
-package CalcEngine;
+package Server.CalcEngine;
 class Operation {
 	private float number; 
 	private String sign; // math operation symbol after number 
