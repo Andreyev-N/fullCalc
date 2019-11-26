@@ -34,7 +34,6 @@ public class EntranceIf extends RegIf {
 	
 
 	public EntranceIf(PrintWriter writer, BufferedReader reader) throws IOException {
-		super(UBase);
 		super.writer = writer;
 		super.reader = reader;
 		
@@ -75,10 +74,9 @@ public class EntranceIf extends RegIf {
 				writer.println(loginField.getText() + "%%" + String.valueOf(passwordField.getPassword()));
 				writer.flush();
 				try {
-					Thread.sleep(1000);
 					String line = reader.readLine();
 					if (line.equals("success")) {
-						CalcInterface Calc = new CalcInterface();
+						CalcInterface Calc = new CalcInterface(writer, reader);
 						Calc.openCalc(loginField.getText());
 						InFrame.setVisible(false);
 					} else {
@@ -86,9 +84,7 @@ public class EntranceIf extends RegIf {
 					}
 				} catch (IOException e1) {
 					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+				} 
 			}
 
 		});

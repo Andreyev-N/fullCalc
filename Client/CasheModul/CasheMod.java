@@ -1,32 +1,46 @@
 package Client.CasheModul;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
-import Server.CalcEngine.SmartCalc;
-
 public class CasheMod {
 
+	private PrintWriter writer;
+	private BufferedReader reader;
 	private final int lev1Size;
 	private LinkedList<CacheElem> level1 = new LinkedList<CacheElem>();
 	private HashMap<String, String> level2 = new HashMap<String, String>();
 	private int lev1Len = 0;
 
-	public CasheMod() {
+	public CasheMod(PrintWriter writer, BufferedReader reader) {
+		this.writer = writer;
+		this.reader = reader;
+
 		lev1Size = 11;
 	}
 
-	public CasheMod(int lev1Size) {
+	public CasheMod(int lev1Size, PrintWriter writer, BufferedReader reader) {
 		this.lev1Size = lev1Size + 1;
+		this.writer = writer;
+		this.reader = reader;
 	}
 
 	public String newItem(String value) {
-		if (!findLev1(value) | !findLev2(value)) {
-			String[] calcArgs = value.split(" ");
-			SmartCalc Calc = new SmartCalc(calcArgs);
-			addFirst(value, Float.toString(Calc.getResult()));
+		if (!findLev1(value) || !findLev2(value)) {
+			writer.println(value);
+			writer.flush();
+			String res = new String();
+			try {
+				res = reader.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			addFirst(value, res);
 		}
 		return level1.getFirst().getRes();
 	}
@@ -91,5 +105,4 @@ public class CasheMod {
 			System.out.println(pair.getKey() + " = " + pair.getValue());
 		}
 	}
-
 }

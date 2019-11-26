@@ -16,10 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Server.dataBase.WorkTable;
-
 public class RegIf {
-	
+
 	protected JFrame RegFrame = new JFrame("calculator");
 	protected PrintWriter writer;
 	protected BufferedReader reader;
@@ -35,12 +33,11 @@ public class RegIf {
 	private JPasswordField passwordField2 = new JPasswordField();
 	private JLabel answerLabel = new JLabel();
 	private JButton RegButton = new JButton("Sign up");
-	
-	protected static WorkTable UBase;
 
-	public RegIf(WorkTable UsersBase) throws IOException {
-		RegIf.UBase = UsersBase;
-		UBase = new WorkTable();
+
+
+	public RegIf() throws IOException {
+
 
 		RegFrame.setLocation(500, 200);
 		mainPane.setLayout(new GridLayout(5, 1));
@@ -58,13 +55,11 @@ public class RegIf {
 		mainPane.add(PasswordPane2);
 		mainPane.add(answerLabel);
 		mainPane.add(ButtonPane);
-		
+
 		passwordField.setEchoChar('*');
 		passwordField2.setEchoChar('*');
 
 	}
-
-
 
 	public void openRegWindow() {
 
@@ -74,8 +69,7 @@ public class RegIf {
 	}
 
 	private void Hear() {
-		
-		
+
 		RegButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -85,7 +79,7 @@ public class RegIf {
 				System.out.println(":" + passwordField2.getPassword().toString() + ":");
 				String password = new String(String.valueOf(passwordField.getPassword()));
 				if (!login.equals("")) {
-					
+
 					if (password.equals(String.valueOf(passwordField2.getPassword()))) {
 						writer.println("reg");
 						writer.println(login + "%%" + password);
@@ -98,13 +92,8 @@ public class RegIf {
 				} else {
 					answerLabel.setText("enter login");
 				}
-
-				//
 			}
 		});
-		
-	
-
 	}
-	
+
 }

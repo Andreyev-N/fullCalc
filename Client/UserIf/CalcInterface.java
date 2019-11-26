@@ -4,17 +4,23 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Client.CasheModul.CasheMod;
-import Server.Logger.Logger;
 
 public class CalcInterface {
 	
 	private JFrame CalcFrame = new JFrame();
+	
+	protected PrintWriter writer;
+	protected BufferedReader reader;
+	
 	private final JButton[] Buttons = new JButton[16];
 	
 	private Container mainPane = CalcFrame.getContentPane();
@@ -28,9 +34,10 @@ public class CalcInterface {
 	private String calcLineString = new String();
 	private String login = new String();
 	
-	private Logger Logger = new Logger();
-	
-	public CalcInterface() {;
+	public CalcInterface(PrintWriter writer, BufferedReader reader) {
+		this.writer = writer;
+		this.reader = reader;
+		
 		CalcFrame.setName(login);
 		CalcFrame.setLocation(500, 200);
 		CalcFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -196,9 +203,8 @@ public class CalcInterface {
 		Buttons[14].addActionListener(new ActionListener() { // =
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CasheMod Cache = new CasheMod(10);
+				CasheMod Cache = new CasheMod(10,writer, reader);
 				resLine.setText(Cache.newItem(calcLineString));
-				Logger.log(login, calcLineString + " = " + resLine.getText());
 				calcLineString = "";
 			}
 		});

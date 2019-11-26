@@ -1,6 +1,5 @@
 package Server.CalcEngine;
 
-
 public class SmartCalc {
 	
 	private String[] args = new String[128];
